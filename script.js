@@ -200,7 +200,6 @@ playerList.addEventListener('click', (event) => {
 
         if (wasDead) {
             playersDead--;
-            souls = Math.max(0, souls - 1);
             soulCounter.textContent = souls;
             filterDeadBtn.textContent = `Dead (${playersDead})`;
         } else {
