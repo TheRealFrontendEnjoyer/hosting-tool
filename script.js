@@ -1,5 +1,3 @@
-// elements
-
 const addplayerBtn = document.getElementById('addplayer');
 const playerList = document.getElementById('playerlist');
 const playerCounter = document.getElementById('playercount');
@@ -23,36 +21,64 @@ const part2 = document.querySelector('.part2');
 const parent = document.querySelector('.parent');
 const nextBtn = document.querySelector('.part1 button');
 
-setupScreen.classList.add('hidden');
-parent.classList.add('hidden');
-part2.classList.add('hidden');
-setupConfirm.classList.add('hidden');
+function hide(el) {
+    el.style.display = 'none';
+}
 
-// setup
+function fadeOut(el, duration = 350) {
+    return new Promise(resolve => {
+        el.style.transition = `opacity ${duration}ms, transform ${duration}ms`;
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(-20px)';
+        setTimeout(() => {
+            hide(el);
+            el.style.transition = '';
+            el.style.transform = '';
+            resolve();
+        }, duration);
+    });
+}
 
-document.querySelector('.mainpage button').addEventListener('click', () => {
-    mainPage.classList.add('fade-out');
-    setTimeout(() => {
-        mainPage.classList.add('hidden');
-        setupScreen.classList.remove('hidden');
-        part1.classList.add('fade-in-up');
-        inputHost.focus();
-    }, 400);
+function fadeIn(el, duration = 350, fromBelow = true) {
+    el.style.display = 'flex';
+    el.style.opacity = '0';
+    el.style.transform = `translateY(${fromBelow ? '20px' : '-20px'})`;
+    el.style.transition = 'none';
+
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            el.style.transition = `opacity ${duration}ms, transform ${duration}ms`;
+            el.style.opacity = '1';
+            el.style.transform = 'translateY(0)';
+        });
+    });
+}
+
+hide(setupScreen);
+hide(part2);
+hide(setupConfirm);
+parent.style.display = 'none';
+
+// MAIN PAGE TO PART 1
+
+document.querySelector('.mainpage button').addEventListener('click', async () => {
+    await fadeOut(mainPage);
+    setupScreen.style.display = 'flex';
+    fadeIn(part1);
+    inputHost.focus();
 });
 
-function goToStep2() {
+// SETUP PART 1 TO PART 2
+
+async function goToStep2() {
     const host = inputHost.value.trim();
     if (!host) return;
 
-    part1.classList.add('fade-out');
-    setTimeout(() => {
-        part1.classList.add('hidden');
-        part2.classList.remove('hidden');
-        setupConfirm.classList.remove('hidden');
-        part2.classList.add('fade-in-up');
-        setupConfirm.classList.add('fade-in-up');
-        inputGame.focus();
-    }, 350);
+    await fadeOut(part1);
+
+    fadeIn(part2);
+    fadeIn(setupConfirm);
+    inputGame.focus();
 }
 
 nextBtn.addEventListener('click', goToStep2);
@@ -60,7 +86,9 @@ inputHost.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') goToStep2();
 });
 
-function beginGame() {
+// SETUP PART 2
+
+async function beginGame() {
     const game = inputGame.value.trim();
     if (!game) return;
 
@@ -68,12 +96,18 @@ function beginGame() {
     document.querySelector('.topleft h3').textContent = `${host}'s MM Game:`;
     document.querySelector('.topleft h2').textContent = game;
 
-    setupScreen.classList.add('fade-out');
-    setTimeout(() => {
-        setupScreen.classList.add('hidden');
-        parent.classList.remove('hidden');
-        setTimeout(() => parent.classList.add('visible'), 20);
-    }, 400);
+    await fadeOut(setupScreen);
+
+    parent.style.display = 'flex';
+    parent.style.opacity = '0';
+    parent.style.transition = 'none';
+
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            parent.style.transition = 'opacity 0.5s';
+            parent.style.opacity = '1';
+        });
+    });
 }
 
 setupConfirm.addEventListener('click', beginGame);
@@ -81,7 +115,7 @@ inputGame.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') beginGame();
 });
 
-// Timer system
+// TIMER
 
 let secondsElapsed = 0;
 let timerInterval = null;
@@ -115,7 +149,7 @@ resetTimer.addEventListener('click', () => {
     startTimer.textContent = 'Start';
 });
 
-// Souls system
+// SOULS
 
 let souls = 0;
 
@@ -129,7 +163,7 @@ removeSoul.addEventListener('click', () => {
     soulCounter.textContent = souls;
 });
 
-// Players part
+// PLAYERS
 
 let playerCount = 0;
 let playersAlive = 0;
@@ -201,7 +235,7 @@ playerList.addEventListener('click', (event) => {
     }
 });
 
-// Filters
+// FILTERS
 
 filterAllBtn.addEventListener('click', () => {
     document.querySelectorAll('.player').forEach(p => p.style.display = 'flex');
