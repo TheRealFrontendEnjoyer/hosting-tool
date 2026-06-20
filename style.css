@@ -246,11 +246,27 @@ html {
     background: #111;
 }
 
+.player span {
+    flex: 1;
+}
+
 .player.dead span {
     text-decoration: line-through;
     text-decoration-color: #ff1a6e;
     text-decoration-thickness: 2px;
     opacity: 0.25;
+}
+
+.player-actions {
+    display: flex;
+    gap: 6px;
+    padding-right: 30px;
+    opacity: 0;
+    transition: opacity 0.1s;
+}
+
+.player:hover .player-actions {
+    opacity: 1;
 }
 
 .addplayer {
@@ -283,7 +299,7 @@ html {
 .killplayer,
 .removeplayer {
     font-family: 'VT323', monospace;
-    font-size: 14px;
+    font-size: 25px;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     background: transparent;
@@ -325,4 +341,170 @@ html {
     background: #333;
     color: #e8e0d0;
     border-color: #555;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    background-color: lightgreen;
+    border-radius: 100px;
+}
+
+.mainpage {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #0a0a0a;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    z-index: 1000;
+    transition: opacity 0.4s, transform 0.4s;
+}
+
+.mainpage h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 52px;
+    letter-spacing: 0.1em;
+    color: #fff;
+    margin: 0;
+}
+
+.mainpage h3 {
+    font-family: 'VT323', monospace;
+    font-size: 16px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #333;
+    margin: 0 0 20px 0;
+    font-weight: 400;
+}
+
+.mainpage button {
+    font-family: 'VT323', monospace;
+    font-size: 22px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    background: transparent;
+    border: 1px solid #ff1a6e;
+    color: #ff1a6e;
+    padding: 8px 40px;
+    cursor: pointer;
+    transition: all 0.12s;
+}
+
+.mainpage button:hover {
+    background: #ff1a6e;
+    color: #0a0a0a;
+}
+
+.setup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #0a0a0a;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    z-index: 999;
+    transition: opacity 0.4s, transform 0.4s;
+}
+
+.part1, .part2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    transition: opacity 0.35s, transform 0.35s;
+}
+
+.setup h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    letter-spacing: 0.1em;
+    color: #fff;
+    margin: 0;
+}
+
+.setup input {
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid #ff1a6e;
+    color: #e8e0d0;
+    font-family: 'Space Mono', monospace;
+    font-size: 16px;
+    letter-spacing: 0.05em;
+    padding: 8px 4px;
+    width: 320px;
+    outline: none;
+    text-align: center;
+    transition: border-color 0.12s;
+}
+
+.setup input::placeholder {
+    color: #2a2a2a;
+}
+
+.setup input:focus {
+    border-bottom-color: #e8853f;
+}
+
+.part1 button, .setup-confirm {
+    font-family: 'VT323', monospace;
+    font-size: 20px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    background: transparent;
+    border: 1px solid #ff1a6e;
+    color: #ff1a6e;
+    padding: 8px 30px;
+    cursor: pointer;
+    transition: all 0.12s;
+}
+
+.part1 button:hover, .setup-confirm:hover {
+    background: #ff1a6e;
+    color: #0a0a0a;
+}
+
+.fade-out {
+    opacity: 0;
+    transform: translateY(-20px);
+    pointer-events: none;
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.4s ease forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hidden {
+    display: none !important;
+}
+
+.parent {
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+.parent.visible {
+    opacity: 1;
 }
