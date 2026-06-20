@@ -224,7 +224,6 @@ playerList.addEventListener('click', (event) => {
         } else {
             playersDead--;
             playersAlive++;
-            souls = Math.max(0, souls - 1);
             soulCounter.textContent = souls;
             dot.style.backgroundColor = 'lightgreen';
             event.target.textContent = 'Kill';
