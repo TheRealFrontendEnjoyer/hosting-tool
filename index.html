@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hosting Tool!</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="parent">
+        <div class="top">
+            <div class="topleft">
+                <h3>Game in planning:</h3>
+                <h2>Murder Mystery</h2>
+            </div>
+
+            <div class="topright">
+                <div class="timer">
+                    <h3>Time Elapsed:</h3>
+                    <h2 id="timerDisplay">00:00:00</h2>
+                    <div>
+                        <button id="startTimer">Start</button>
+                        <button id="resetTimer">Reset</button>
+                    </div>
+                </div>
+
+                <div class="soulcounter">
+                    <h3>Souls:</h3>
+                    <h2 id="soulcounter">0</h2>
+                    <div>
+                        <button id="removeSoul">-1</button>
+                        <button id="resetSoul">Reset</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="spacer"></div>
+
+        <div class="playerlist">
+            <div class="playerlisttop">
+                    <div class="btnsplayerlisttop">
+                        <button id="filterAll">All (0)</button>
+                        <button id="filterAlive">Alive (0)</button>
+                        <button id="filterDead">Dead (0)</button>
+                    </div>
+
+                    <div class="playercount">
+                        <h3 id="playercount">0 players</h3>
+                    </div>
+            </div>
+
+            <div class="actualplayerlist">
+                <div class="playerlist" id="playerlist">
+
+                </div>
+
+                <div class="addplayer" id="addplayer">
+                    <button>Add player +</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
